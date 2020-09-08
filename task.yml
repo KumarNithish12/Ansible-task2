@@ -1,0 +1,20 @@
+- hosts: localhost
+  vars_files:
+    - credentials.yml
+  tasks:
+    - name: Launch VM on AWS Cloud
+      ec2:
+        key_name: "hcc81"
+        instance_type: "t2.micro"
+        image: "ami-052c08d70def0ac62" 
+        wait: yes
+        count: 1
+        vpc_subnet_id: "subnet-1f3c4953"
+        assign_public_ip: yes
+        region: "ap-south-1"
+        state: present
+        group: "default"
+        aws_access_key: "{{ awsuser }}"
+        aws_secret_key: "{{ awspass }}"
+        instance_tags:
+          Name: Ansible_aws_wb
